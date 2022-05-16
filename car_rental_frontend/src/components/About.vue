@@ -3,8 +3,7 @@
     <h1>About us</h1>
 
     <div>
-      To proste – z nami Twoje motoryzacyjne doświadczenia wskoczą na wyższy poziom! Poznasz nowe oblicze mocy, komfortu, dynamiki, luksusu i designu. Zyskasz dostęp do najbogatszej oferty samochodów premium – gotowych, aby zabrać Cię w podróż życia już w 2 godziny od momentu wysłania formularza.
-    </div>
+      It's simple - take your motoring experience to the next level with us! You will discover a new face of power, comfort, dynamics, luxury and design. You will gain access to the widest range of premium cars - ready to take you on the journey of a lifetime in just 2 hours from the moment you submit the form.    </div>
   </body>
 </template>
 
