@@ -4,38 +4,38 @@
     <h1>What are you looking for?</h1>
 
     <div class="container">
-      <div class="item">
+      <div class="item" @click="$router.push('./power')">
         <h2>POWER</h2>
         <img class="img" src="../plugins/images/speedometr.png">
         <br />
       </div>
 
-      <div class="item">
+      <div class="item" @click="$router.push('./electric')">
         <h2>ELECTRIC</h2>
         <img class="img" src="../plugins/images/electrical.png">
         <br />
       </div>
 
-      <div class="item">
+      <div class="item" @click="$router.push('./legendary')">
         <h2>LEGENDARY</h2>
         <img class="img" src="../plugins/images/legend.png">
         <br />
       </div>
 
-      <div class="item">
+      <div class="item" @click="$router.push('./luxury')">
         <h2>LUXURY</h2>
-        <img class="img" src="../plugins/images/luxury.jpg">
+        <img class="img" src="../plugins/images/luxury.png">
         <br />
       </div>
 
-      <div class="item">
+      <div class="item" @click="$router.push('./design')">
         <h2>DESIGN</h2>
         <img class="img" src="../plugins/images/designed.png">
         <br />
       </div>
 
-      <div class="item">
-        <h2>DESIGN</h2>
+      <div class="item" @click="$router.push('./dynamic')">
+        <h2>DYNAMIC</h2>
         <img class="img" src="../plugins/images/dynamic.png">
         <br />
       </div>
@@ -56,7 +56,6 @@ export default {
 <style scoped>
 body {
   margin-left: 25px;
-  /*background-color: #ff5142;*/
 }
 .container {
   display: grid;
@@ -67,7 +66,6 @@ body {
   justify-items: stretch;
   align-items: stretch;
 }
-
 .img {
   width: 200px;
   height: 200px;
@@ -76,8 +74,9 @@ body {
   border-style: groove;
   border-radius: 10px;
 }
-
-.button {
-  padding: 5px;
+.item:hover {
+  background-color: #8F8F8FFF;
+  cursor: pointer;
+  transition: all 0.6s ease-in-out;
 }
 </style>
