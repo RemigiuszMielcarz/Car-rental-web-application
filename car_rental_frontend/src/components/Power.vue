@@ -1,13 +1,13 @@
 <template>
   <body>
   <div class="header">
-    CARS SORTED BY HORSEPOWER
+    CARS SORTED BY HORSEPOWER &nbsp; <i class="fa-solid fa-fire"></i>
   </div>
   <div class="container_all_cars">
     <div class="item"  v-for="(CAR) in allCars" :key="CAR">
       {{ CAR.brandName + " " + CAR.modelName }}
       <br/><br/>
-      {{ CAR.power }} HORSEPOWER! <font-awesome-icon style="width: 30px" icon="fa-brands fa-gripfire" />
+      {{ CAR.power }} HORSEPOWER!
       <!--        <img class="img" src="../plugins/images/items/'{{ ALLCARS.picture }}'">-->
     </div>
   </div>
