@@ -5,8 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/adverts")
+@RequestMapping("/api/items")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:8081")
 public class ItemController {
 
     private final ItemService itemService;

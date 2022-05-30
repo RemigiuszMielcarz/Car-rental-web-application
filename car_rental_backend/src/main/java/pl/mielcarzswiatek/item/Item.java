@@ -21,6 +21,9 @@ public class Item {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "picture")
+    private String picture;
+
     @OneToOne
     @JoinColumn(name = "status_id")
     private Status status;
@@ -31,8 +34,10 @@ public class Item {
 
     public Item(String title,
                 Status status,
+                String picture,
                 Car car) {
         this.title = title;
+        this.picture = picture;
         this.status = status;
         this.car = car;
     }

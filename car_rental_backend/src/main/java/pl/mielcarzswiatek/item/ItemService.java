@@ -26,9 +26,11 @@ public class ItemService {
     public ResponseEntity<?> saveAdvert(ItemRequest request) {
         Car car = carService.saveCar(request);
         Status status = statusRepository.save(new Status(true));
+        String picture = "";
         Item advert = new Item(
                 request.getTitle(),
                 status,
+                picture,
                 car
         );
         itemRepository.save(advert);

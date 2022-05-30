@@ -33,6 +33,7 @@ public class Mapper {
 
         return new ItemResponse(
                 advert.getTitle(),
+                advert.getPicture(),
                 carModel.getDescription().getSpecification(),
                 carBrand.getBrandName(),
                 carModel.getModelName(),
