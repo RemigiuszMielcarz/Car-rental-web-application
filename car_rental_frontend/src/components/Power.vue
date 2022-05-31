@@ -6,9 +6,11 @@
   <div class="container_all_cars">
     <div class="item"  v-for="(CAR) in allCars" :key="CAR">
       {{ CAR.brandName + " " + CAR.modelName }}
-      <br/><br/>
-      {{ CAR.power }} HORSEPOWER!
-      <!--        <img class="img" src="../plugins/images/items/'{{ ALLCARS.picture }}'">-->
+      <br/>
+      <img class="img" :src="require(`../plugins/images/${CAR.picture}`)"/>
+      <div class="power">
+        {{ CAR.power }} HORSEPOWER!
+      </div>
     </div>
   </div>
   </body>
@@ -81,8 +83,8 @@ body {
   align-items: stretch;
 }
 .img {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
 }
 .item {
   text-align: center;
@@ -94,5 +96,8 @@ body {
   background-color: #8F8F8FFF;
   cursor: pointer;
   transition: all 0.6s ease-in-out;
+}
+.power {
+  text-align: center;
 }
 </style>

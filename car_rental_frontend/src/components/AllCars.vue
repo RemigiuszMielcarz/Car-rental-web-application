@@ -49,8 +49,8 @@
   <div class="container_all_cars">
     <div class="item"  v-for="(ALLCARS) in allCars " :key="ALLCARS">
       {{ ALLCARS.brandName + " " + ALLCARS.modelName}}
-      <img class="img" :src="'../plugins/images/items/' + ALLCARS.picture">
-
+      <br/>
+      <img class="img" :src="require(`../plugins/images/${ALLCARS.picture}`)"/>
     </div>
   </div>
 
@@ -77,7 +77,7 @@ export default {
       axios.get("http://localhost:8080/api/items").then(function (response) {
         this.allCars = response.data
       }.bind(this))
-    }
+    },
   }
 }
 </script>
@@ -108,8 +108,8 @@ body {
   align-items: stretch;
 }
 .img {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
 }
 .item {
   text-align: center;
