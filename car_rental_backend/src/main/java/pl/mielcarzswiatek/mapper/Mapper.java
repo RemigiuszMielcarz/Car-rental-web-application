@@ -34,6 +34,7 @@ public class Mapper {
         return new ItemResponse(
                 advert.getTitle(),
                 advert.getPicture(),
+                advert.getType(),
                 carModel.getDescription().getSpecification(),
                 carBrand.getBrandName(),
                 carModel.getModelName(),

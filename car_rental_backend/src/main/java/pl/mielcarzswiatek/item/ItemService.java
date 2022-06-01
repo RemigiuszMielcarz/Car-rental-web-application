@@ -27,10 +27,13 @@ public class ItemService {
         Car car = carService.saveCar(request);
         Status status = statusRepository.save(new Status(true));
         String picture = "";
+        String type = "";
+
         Item advert = new Item(
                 request.getTitle(),
                 status,
-                picture,
+                request.getPicture(),
+                request.getType(),
                 car
         );
         itemRepository.save(advert);

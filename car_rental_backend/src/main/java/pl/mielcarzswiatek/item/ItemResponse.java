@@ -11,6 +11,7 @@ public class ItemResponse {
     // item description
     private String title;
     private String picture;
+    private String type;
     private String specification;
 
     // main data

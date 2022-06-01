@@ -20,4 +20,5 @@ public class ItemRequest {
     // item
     private String title;
     private String picture;
+    private String type;
 }
