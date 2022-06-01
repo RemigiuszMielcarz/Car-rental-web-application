@@ -12,11 +12,6 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    @PostMapping
-    public ResponseEntity<?> postAdvert(@RequestBody ItemRequest request) {
-        return itemService.saveAdvert(request);
-    }
-
     @GetMapping
     public ResponseEntity<?> findByFilters(
             @RequestParam(name = "power_min", defaultValue = "0") Integer powerMin,
@@ -33,7 +28,9 @@ public class ItemController {
             @RequestParam(name = "week_min", defaultValue = "0") Integer weekMin,
             @RequestParam(name = "week_max", defaultValue = "2000000000") Integer weekMax,
             @RequestParam(name = "month_min", defaultValue = "0") Integer monthMin,
-            @RequestParam(name = "month_max", defaultValue = "2000000000") Integer monthMax
+            @RequestParam(name = "month_max", defaultValue = "2000000000") Integer monthMax,
+            @RequestParam(name = "country", defaultValue = "%") String country
+
             )
        {
 
@@ -52,7 +49,8 @@ public class ItemController {
                 weekMax,
                 monthMin,
                 monthMax,
-                modelName
+                modelName,
+                country
         );
     }
 

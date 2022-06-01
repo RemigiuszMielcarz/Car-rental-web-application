@@ -22,27 +22,6 @@ public class ItemService {
     private final CarService carService;
     private final Mapper mapper;
 
-    @Transactional
-    public ResponseEntity<?> saveAdvert(ItemRequest request) {
-        Car car = carService.saveCar(request);
-        Status status = statusRepository.save(new Status(true));
-        String picture = "";
-        String type = "";
-
-        Item advert = new Item(
-                request.getTitle(),
-                status,
-                request.getPicture(),
-                request.getType(),
-                car
-        );
-        itemRepository.save(advert);
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body("Item added");
-    }
-
     public ResponseEntity<?> findByFilters(
                                            Integer powerMin,
                                            Integer powerMax,
@@ -58,7 +37,8 @@ public class ItemService {
                                            Integer weekMax,
                                            Integer monthMin,
                                            Integer monthMax,
-                                           String modelName) {
+                                           String modelName,
+                                           String country) {
 
         List<Item> adverts = itemRepository.findByFilters(
                 powerMin,
@@ -75,7 +55,8 @@ public class ItemService {
                 weekMax,
                 monthMin,
                 monthMax,
-                modelName
+                modelName,
+                country
         );
 
         List<ItemResponse> responses = mapper.createItemResponses(adverts);

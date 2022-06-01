@@ -7,6 +7,7 @@ import pl.mielcarzswiatek.carbrand.CarBrand;
 import pl.mielcarzswiatek.carmodel.CarModel;
 import pl.mielcarzswiatek.parameters.Parameters;
 import pl.mielcarzswiatek.pricelist.PriceList;
+import pl.mielcarzswiatek.status.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class Mapper {
         CarModel carModel = advert.getCar().getCarModel();
         CarBrand carBrand = carModel.getCarBrand();
         PriceList priceList = carModel.getPriceList();
+        Status status = advert.getStatus();
 
         return new ItemResponse(
                 advert.getTitle(),
@@ -47,7 +49,8 @@ public class Mapper {
                 priceList.getDay(),
                 priceList.getWeekend(),
                 priceList.getWeek(),
-                priceList.getMonth()
+                priceList.getMonth(),
+                status.getIsAvailable()
         );
     }
 }

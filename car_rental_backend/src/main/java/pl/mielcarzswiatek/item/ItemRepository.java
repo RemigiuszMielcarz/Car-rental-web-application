@@ -18,23 +18,25 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             "AND a.car.carModel.priceList.weekend BETWEEN ?9 AND ?10 " +
             "AND a.car.carModel.priceList.week BETWEEN ?11 AND ?12 " +
             "AND a.car.carModel.priceList.month BETWEEN ?13 AND ?14 " +
-            "AND a.car.carModel.modelName LIKE ?15 "
+            "AND a.car.carModel.modelName LIKE ?15 " +
+            "AND a.car.carModel.carBrand.country LIKE ?16"
     )
     List<Item> findByFilters(
-                                      Integer powerMin,
-                                      Integer powerMax,
-                                      Integer vintageMin,
-                                      Integer vintageMax,
-                                      Integer mileageMin,
-                                      Integer mileageMax,
-                                      Integer dayMin,
-                                      Integer dayMax,
-                                      Integer weekendMin,
-                                      Integer weekendMax,
-                                      Integer weekMin,
-                                      Integer weekMax,
-                                      Integer monthMin,
-                                      Integer monthMax,
-                                      String modelName
+            Integer powerMin,
+            Integer powerMax,
+            Integer vintageMin,
+            Integer vintageMax,
+            Integer mileageMin,
+            Integer mileageMax,
+            Integer dayMin,
+            Integer dayMax,
+            Integer weekendMin,
+            Integer weekendMax,
+            Integer weekMin,
+            Integer weekMax,
+            Integer monthMin,
+            Integer monthMax,
+            String modelName,
+            String country
     );
 }

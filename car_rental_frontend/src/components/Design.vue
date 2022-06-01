@@ -7,8 +7,16 @@
     <div class="container_all_cars">
       <div class="item"  v-for="(CAR) in designCars" :key="CAR">
         {{ CAR.brandName + " " + CAR.modelName }}
+
         <br/>
+
         <img class="img" :src="require(`../plugins/images/${CAR.picture}`)"/>
+
+        <br/>
+
+        <button @click="checkAvailable" style="margin-bottom: 30px">
+          Check Availability
+        </button>
       </div>
     </div>
   </body>
@@ -45,6 +53,10 @@ export default {
           }
         }
       }.bind(this))
+    },
+    checkAvailable(ALLCARS) {
+      console.log("Sprawdzam", ALLCARS)
+      return ALLCARS
     },
   },
 }

@@ -16,24 +16,24 @@
           <Field
             class="formField"
             type="text"
-            name="carbody"/>
-          <ErrorMessage name="carbody" class="errorMessage"/>
+            name="carBody"/>
+          <ErrorMessage name="carBody" class="errorMessage"/>
         </td>
 
         <td>
           <Field
               class="formField"
               type="text"
-              name="brandname"/>
-          <ErrorMessage name="brandname" class="errorMessage"/>
+              name="brandName"/>
+          <ErrorMessage name="brandName" class="errorMessage"/>
         </td>
 
         <td>
           <Field
               class="formField"
               type="text"
-              name="modelname"/>
-          <ErrorMessage name="modelname" class="errorMessage"/>
+              name="model"/>
+          <ErrorMessage name="model" class="errorMessage"/>
         </td>
 
         <td>
@@ -56,7 +56,7 @@
         <td>
           <Field
               class="formField"
-              type="text"
+              type="number"
               name="power_min"/>
           <ErrorMessage name="power_min" class="errorMessage"/>
         </td>
@@ -64,7 +64,7 @@
         <td>
           <Field
               class="formField"
-              type="text"
+              type="number"
               name="power_max"/>
           <ErrorMessage name="power_max" class="errorMessage"/>
         </td>
@@ -72,7 +72,7 @@
         <td>
           <Field
               class="formField"
-              type="text"
+              type="number"
               name="mileage_min"/>
           <ErrorMessage name="mileage_min" class="errorMessage"/>
         </td>
@@ -80,7 +80,7 @@
         <td>
           <Field
               class="formField"
-              type="text"
+              type="number"
               name="mileage_max"/>
           <ErrorMessage name="mileage_max" class="errorMessage"/>
         </td>
@@ -95,7 +95,7 @@
         <td>
           <Field
               class="formField"
-              type="text"
+              type="number"
               name="vintage_min"/>
           <ErrorMessage name="vintage_min" class="errorMessage"/>
         </td>
@@ -103,7 +103,7 @@
         <td>
           <Field
               class="formField"
-              type="text"
+              type="number"
               name="vintage_max"/>
           <ErrorMessage name="vintage_max" class="errorMessage"/>
         </td>
@@ -111,11 +111,13 @@
     </table>
 
     <div style="margin-top: 10px">
-      <button>
+      <button @click="this.loading = true">
         Filter cars
       </button>
     </div>
   </Form>
+
+  <br/>
 
   <div v-if="successful">
     <div class="container_all_cars">
@@ -123,6 +125,24 @@
         {{ ALLCARS.brandName + " " + ALLCARS.modelName}}
         <br/>
         <img class="img" :src="require(`../plugins/images/${ALLCARS.picture}`)"/>
+      </div>
+    </div>
+  </div>
+
+  <div v-if="loading">
+    <div class="container_all_cars">
+      <div class="item" v-for="(ALLCARS) in sortedCars " :key="ALLCARS">
+        {{ ALLCARS.brandName + " " + ALLCARS.modelName}}
+
+        <br/>
+
+        <img class="img" :src="require(`../plugins/images/${ALLCARS.picture}`)"/>
+
+        <br/>
+
+        <button @click="checkAvailable" style="margin-bottom: 30px">
+          Check Availability
+        </button>
       </div>
     </div>
   </div>
@@ -144,11 +164,11 @@ export default {
   },
   data: function () {
     const schema = yup.object().shape({
-      carbody: yup
+      carBody: yup
           .string(),
-      brandname: yup
+      brandName: yup
           .string(),
-      modelname: yup
+      model: yup
           .string(),
       country: yup
           .string(),
@@ -177,6 +197,7 @@ export default {
     });
     return {
       allCars: [],
+      sortedCars: [],
       successful: false,
       loading: false,
       message: "",
@@ -192,10 +213,52 @@ export default {
         this.allCars = response.data
       }.bind(this))
     },
-    handleForm() {
-      console.log("wykonuje")
-    }
-  }
+    handleForm(advert) {
+      console.log('advert: ', advert)
+      advert.vintage_min = this.convertToNumber(advert.vintage_min);
+      advert.vintage_max = this.convertToNumber(advert.vintage_max);
+      advert.mileage_min = this.convertToNumber(advert.mileage_min);
+      advert.mileage_max = this.convertToNumber(advert.mileage_max);
+      advert.power_min = this.convertToNumber(advert.power_min);
+      advert.power_max = this.convertToNumber(advert.power_max);
+      advert.price_min = this.convertToNumber(advert.price_min);
+      advert.price_max = this.convertToNumber(advert.price_max);
+      advert.carBody = this.convertToString(advert.carBody);
+      advert.brandName = this.convertToString(advert.brandName);
+      advert.model = this.convertToString(advert.model);
+      advert.country = this.convertToString(advert.country);
+      advert.color = this.convertToString(advert.color);
+
+      let URL = `http://localhost:8080/api/items` +
+          `?brandName=${advert.brandName}&model=${advert.model}&carBody=${advert.carBody}` +
+          `&color=${advert.color}&vintage_min=${advert.vintage_min}` +
+          `&vintage_max=${advert.vintage_max}&mileage_min=${advert.mileage_min}&mileage_max=${advert.mileage_max}` +
+          `&power_min=${advert.power_min}&power_max=${advert.power_max}&country=${advert.country}`;
+
+          this.$emit('carURL', URL)
+
+          console.log(URL)
+          axios.get(URL).then(function (response) {
+            this.sortedCars = response.data
+          }.bind(this))
+      },
+      checkAvailable(ALLCARS) {
+        console.log("Sprawdzam", ALLCARS)
+        return ALLCARS
+      },
+      convertToString(text) {
+        if(text) {
+          return text;
+        }
+        return '';
+      },
+      convertToNumber(number) {
+        if(number) {
+          return Number(number);
+        }
+        return '';
+      },
+    },
 }
 </script>
 
@@ -220,16 +283,6 @@ export default {
   justify-items: stretch;
   align-items: stretch;
 }
-
-.formDiv{
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  flex-direction: column;
-  align-content: space-around;
-  margin: auto;
-}
-
 form{
   display: flex;
   flex-direction: column;
@@ -238,21 +291,14 @@ select{
   width: 100px;
   margin:auto;
 }
-
 label{
   text-align: center;
   font-weight: bold;
   font-size: 20px;
 }
 .formField{
-  /*font-family: "Maiandra GD";*/
   background: none;
-  /*font-size: 20px;*/
-  /*width: 580px !important;*/
-  /*margin:auto;*/
   border: none;
-  /*border-bottom: black solid 2px;*/
-  /*padding: 20px;*/
 }
 Field :hover{
 
@@ -261,26 +307,12 @@ Field :hover{
 
   border-bottom: black solid;
 }
-
-.formFieldText{
-  width: 600px;
-  font-size: 20px;
-  margin:auto;
-  background: none;
-  border: none;
-  resize: none;
-  height: 100px;
-  border-bottom: black solid 2px;
-}
-
-
 .errorMessage{
   color: red;
   font-size: 10px;
   text-align: center;
   font-weight: bold;
 }
-
 .formDiv button{
   font-size: 40px;
   margin: 50px;
@@ -290,13 +322,11 @@ Field :hover{
   border-radius: 15px;
   transition: all 0.3s ease-in-out;
 }
-
 .formDiv  button:hover{
   background: black;
   color: yellow;
   cursor: pointer;
 }
-
 table, th, td {
   border:1px solid black;
 }

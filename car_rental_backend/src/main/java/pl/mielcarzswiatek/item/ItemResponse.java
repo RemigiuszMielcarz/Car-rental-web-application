@@ -33,4 +33,6 @@ public class ItemResponse {
     private Integer weekend;
     private Integer week;
     private Integer month;
+
+    private Boolean status;
 }

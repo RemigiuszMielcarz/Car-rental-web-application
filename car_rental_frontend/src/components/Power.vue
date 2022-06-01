@@ -7,10 +7,20 @@
     <div class="container_all_cars">
       <div class="item"  v-for="(CAR) in allCars" :key="CAR">
         {{ CAR.brandName + " " + CAR.modelName }}
+
         <br/>
+
         <img class="img" :src="require(`../plugins/images/${CAR.picture}`)"/>
         <div class="power">
           {{ CAR.power }} HORSEPOWER!
+        </div>
+
+        <button @click="checkAvailable(CAR)" style="margin-bottom: 30px">
+          Check Availability
+        </button>
+
+        <div v-if="message && checkAvailable">
+          {{this.message}}
         </div>
       </div>
     </div>
@@ -52,6 +62,12 @@ export default {
           }
         }
       }.bind(this))
+    },
+    checkAvailable(selectedCar) {
+      if(selectedCar.status === false)
+        return this.message = 'Unavailable'
+      else
+        return this.message = 'Available'
     },
   },
 }
