@@ -94,10 +94,6 @@ export default {
   border-style: groove;
   border-radius: 10px;
 }
-
-body {
-  margin-left: 25px;
-}
 .container_all_cars {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -106,20 +102,5 @@ body {
   grid-row-gap: 25px;
   justify-items: stretch;
   align-items: stretch;
-}
-.img {
-  width: 300px;
-  height: 300px;
-}
-.item {
-  text-align: center;
-  justify-content: center;
-  border-style: groove;
-  border-radius: 10px;
-}
-.item:hover {
-  background-color: #8F8F8FFF;
-  cursor: pointer;
-  transition: all 0.6s ease-in-out;
 }
 </style>

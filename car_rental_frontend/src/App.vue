@@ -1,5 +1,4 @@
 <template>
-  <link rel="stylesheet" href="../public/style.css"/>
   <Sidebar />
   <div :style="{ 'margin-left': sidebarWidth }">
     <router-view />
