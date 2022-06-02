@@ -9,6 +9,7 @@ import Legendary from "@/components/Legendary";
 import Luxury from "@/components/Luxury";
 import Design from "@/components/Design";
 import Dynamic from "@/components/Dynamic";
+import Car from "@/components/Car";
 const routes = [
     {
         path: "/",
@@ -49,6 +50,10 @@ const routes = [
     {
         path: "/dynamic",
         component: Dynamic
+    },
+    {
+        path: "/rent_car",
+        component: Car
     }
 ]
 

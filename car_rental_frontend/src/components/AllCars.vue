@@ -120,6 +120,7 @@
   <div v-if="successful">
     <div class="container_all_cars">
       <div class="item"  v-for="(ALLCARS) in allCars " :key="ALLCARS">
+        <br/>
         {{ ALLCARS.brandName + " " + ALLCARS.modelName}}
         <br/>
         <img class="img" :src="require(`../plugins/images/${ALLCARS.picture}`)"/>

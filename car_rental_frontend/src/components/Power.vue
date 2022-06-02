@@ -15,9 +15,15 @@
           {{ CAR.power }} HORSEPOWER!
         </div>
 
-        <button class="button" @click="checkAvailable(CAR)">
-          Check Availability
-        </button>
+        <div class="option">
+          <button class="button" id="firstbtn" @click="checkAvailable(CAR)">
+            Check Availability
+          </button>
+
+          <button class="button" id="secondbtn" @click="rentCar(CAR)">
+            Rent this car
+          </button>
+        </div>
 
         <div v-if="message && (selectedCar === CAR)"
              class="alert" :class="selectedCar.status ? 'alert-success' : 'alert-danger'">
@@ -69,13 +75,24 @@ export default {
       if(selectedCar.status === false)
         return this.message = 'Unavailable', this.selectedCar = selectedCar;
       else
+        document.getElementById("firstbtn").style.display="none";
+        document.getElementById("secondbtn").style.display="block";
         return this.message = 'Available', this.selectedCar = selectedCar;
     },
+    rentCar(selectedCar) {
+      if(selectedCar.status === true)
+        this.$router.push('./rent_car')
+    }
   },
 }
 </script>
 
 <style scoped>
+.option {
+  display: flex;
+  justify-content: space-evenly;
+
+}
 .container_all_cars {
   display: grid;
   grid-template-columns: 1fr 1fr;
