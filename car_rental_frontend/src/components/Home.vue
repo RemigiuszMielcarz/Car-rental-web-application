@@ -55,7 +55,7 @@ export default {
 
 <style scoped>
 body {
-  margin-left: 25px;
+  margin-left: 8px;
 }
 .container {
   display: grid;

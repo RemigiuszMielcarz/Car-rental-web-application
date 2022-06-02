@@ -6,6 +6,7 @@
 
     <div class="container_all_cars">
       <div class="item"  v-for="(CAR) in legendaryCars" :key="CAR">
+        <br/>
         {{ CAR.brandName + " " + CAR.modelName }}
         <br/>
 
@@ -13,9 +14,14 @@
 
         <br/>
 
-        <button @click="checkAvailable" style="margin-bottom: 30px">
+        <button class="button" @click="checkAvailable(CAR)">
           Check Availability
         </button>
+
+        <div v-if="message && (selectedCar === CAR)"
+             class="alert" :class="selectedCar.status ? 'alert-success' : 'alert-danger'">
+          {{ message }}
+        </div>
       </div>
     </div>
   </body>
@@ -30,6 +36,7 @@ export default {
   data() {
     return {
       allCars: [],
+      selectedCar: [],
       successful: false,
       loading: false,
       message: "",
@@ -53,9 +60,11 @@ export default {
         }
       }.bind(this))
     },
-    checkAvailable(ALLCARS) {
-      console.log("Sprawdzam", ALLCARS)
-      return ALLCARS
+    checkAvailable(selectedCar) {
+      if(selectedCar.status === false)
+        return this.message = 'Unavailable', this.selectedCar = selectedCar;
+      else
+        return this.message = 'Available', this.selectedCar = selectedCar;
     },
   },
 }

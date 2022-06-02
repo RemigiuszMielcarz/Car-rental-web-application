@@ -111,13 +111,11 @@
     </table>
 
     <div style="margin-top: 10px">
-      <button @click="this.loading = true">
+      <button class="button" @click="this.loading = true">
         Filter cars
       </button>
     </div>
   </Form>
-
-  <br/>
 
   <div v-if="successful">
     <div class="container_all_cars">
@@ -132,17 +130,22 @@
   <div v-if="loading">
     <div class="container_all_cars">
       <div class="item" v-for="(ALLCARS) in sortedCars " :key="ALLCARS">
+        <br/>
         {{ ALLCARS.brandName + " " + ALLCARS.modelName}}
-
         <br/>
 
         <img class="img" :src="require(`../plugins/images/${ALLCARS.picture}`)"/>
 
         <br/>
 
-        <button @click="checkAvailable" style="margin-bottom: 30px">
+        <button class="button" @click="checkAvailable(ALLCARS)">
           Check Availability
         </button>
+
+        <div v-if="message && (selectedCar === ALLCARS)"
+             class="alert" :class="selectedCar.status ? 'alert-success' : 'alert-danger'">
+          {{ message }}
+        </div>
       </div>
     </div>
   </div>
@@ -198,6 +201,7 @@ export default {
     return {
       allCars: [],
       sortedCars: [],
+      selectedCar: [],
       successful: false,
       loading: false,
       message: "",
@@ -242,10 +246,12 @@ export default {
             this.sortedCars = response.data
           }.bind(this))
       },
-      checkAvailable(ALLCARS) {
-        console.log("Sprawdzam", ALLCARS)
-        return ALLCARS
-      },
+    checkAvailable(selectedCar) {
+      if(selectedCar.status === false)
+        return this.message = 'Unavailable', this.selectedCar = selectedCar;
+      else
+        return this.message = 'Available', this.selectedCar = selectedCar;
+    },
       convertToString(text) {
         if(text) {
           return text;
