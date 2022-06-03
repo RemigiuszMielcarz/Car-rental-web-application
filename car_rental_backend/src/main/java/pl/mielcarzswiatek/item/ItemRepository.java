@@ -22,9 +22,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             "AND a.car.carModel.priceList.week BETWEEN ?11 AND ?12 " +
             "AND a.car.carModel.priceList.month BETWEEN ?13 AND ?14 " +
             "AND a.car.carModel.modelName LIKE ?15 " +
-            "AND a.car.carModel.carBrand.country LIKE ?16"
-
-
+            "AND a.car.carModel.carBrand.country LIKE ?16 " +
+            "AND a.car.carModel.carBody LIKE ?17 " +
+            "AND a.car.carModel.carBrand.brandName LIKE ?18 "
 
     )
     List<Item> findByFilters(
@@ -44,7 +44,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             Integer monthMax,
             String modelName,
             String country,
-            String carBody
+            String carBody,
+            String brandName
     );
 
     Optional<Item>findByCar_CarModel_ModelName(String modelName);

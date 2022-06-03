@@ -40,7 +40,8 @@ public class ItemService {
                                            Integer monthMax,
                                            String modelName,
                                            String country,
-                                           String carBody) {
+                                           String carBody,
+                                           String brandName) {
 
         List<Item> adverts = itemRepository.findByFilters(
                 powerMin,
@@ -59,7 +60,8 @@ public class ItemService {
                 monthMax,
                 modelName,
                 country,
-                carBody
+                carBody,
+                brandName
         );
 
         List<ItemResponse> responses = mapper.createItemResponses(adverts);

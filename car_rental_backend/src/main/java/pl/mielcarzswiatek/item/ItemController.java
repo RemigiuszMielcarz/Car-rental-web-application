@@ -30,7 +30,8 @@ public class ItemController {
             @RequestParam(name = "month_min", defaultValue = "0") Integer monthMin,
             @RequestParam(name = "month_max", defaultValue = "2000000000") Integer monthMax,
             @RequestParam(name = "country", defaultValue = "%") String country,
-            @RequestParam(name = "car_body",defaultValue = "%") String carBody
+            @RequestParam(name = "car_body", defaultValue = "%") String carBody,
+            @RequestParam(name = "brand_name", defaultValue = "%") String brandName
             )
        {
 
@@ -51,7 +52,8 @@ public class ItemController {
                 monthMax,
                 modelName,
                 country,
-                carBody
+                carBody,
+                brandName
         );
     }
 
