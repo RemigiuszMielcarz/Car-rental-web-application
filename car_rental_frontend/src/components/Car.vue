@@ -7,10 +7,12 @@
     <div class="container_all_cars">
       <div class="item">
         <div class="title">
-        {{ selectedCar.title }}
+          {{ selectedCar.title }}
+          <br/>
+          {{selectedCar.specification}}
         </div>
 
-        <!--        <img class="img" :src="require(`../plugins/images/${selectedCar.picture}`)"/>-->
+<!--        <img class="img" :src="require(`../plugins/images/${selectedCar.picture}`)" alt=""/>-->
 
         <table class="customTable">
           <thead>
@@ -29,7 +31,7 @@
             <td>{{ "Country: " + selectedCar.country }}</td>
           </tr>
           <tr>
-            <td>{{ "Mileage: " + selectedCar.mileage }}</td>
+            <td>{{ "Mileage: " + selectedCar.mileage + " miles"}}</td>
           </tr>
           <tr>
             <td>{{ "Color: " + selectedCar.color }}</td>
@@ -51,6 +53,8 @@
           </tr>
           </tbody>
         </table>
+
+        <br/>
 
         <div class="option">
           <button class="button" id="firstbtn" @click="checkAvailable(selectedCar)">
