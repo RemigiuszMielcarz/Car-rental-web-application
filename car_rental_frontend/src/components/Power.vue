@@ -10,7 +10,10 @@
         {{ CAR.brandName + " " + CAR.modelName }}
         <br/>
 
-        <img class="img" :src="require(`../plugins/images/${CAR.picture}`)"/>
+        <img class="img"
+             @click="$router.push('../rent_car');
+             rememberCar(CAR)"
+             :src="require(`../plugins/images/${CAR.picture}`)"/>
         <div class="power">
           {{ CAR.power }} HORSEPOWER!
         </div>
@@ -44,6 +47,7 @@ export default {
     return {
       allCars: [],
       selectedCar: [],
+      rememberedCar: [],
       successful: false,
       loading: false,
       message: "",
@@ -56,8 +60,6 @@ export default {
     fetchItems() {
       axios.get("http://localhost:8080/api/items").then(function (response) {
         this.allCars = response.data;
-        console.log(this.allCars[0].status)
-        console.log(this.allCars[0].modelName)
         let temp = 0;
 
         for (let i = 0; i < this.allCars.length; i++) {
@@ -74,7 +76,6 @@ export default {
     },
     checkAvailable(selectedCar) {
       if(selectedCar.status === false) {
-        console.log(selectedCar)
         this.selectedCar = selectedCar;
         return this.message = 'Unavailable';
       }
@@ -91,17 +92,15 @@ export default {
         this.selectedCar=selectedCar
         this.$router.push('/')
       }
+    },
+    rememberCar(selectedCar) {
+      localStorage.setItem('selectedCar', JSON.stringify(selectedCar));
     }
   },
 }
 </script>
 
 <style scoped>
-.option {
-  display: flex;
-  justify-content: space-evenly;
-
-}
 .container_all_cars {
   display: grid;
   grid-template-columns: 1fr 1fr;

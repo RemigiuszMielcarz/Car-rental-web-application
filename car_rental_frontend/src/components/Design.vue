@@ -10,13 +10,22 @@
         {{ CAR.brandName + " " + CAR.modelName }}
         <br/>
 
-        <img class="img" :src="require(`../plugins/images/${CAR.picture}`)"/>
+        <img class="img"
+             @click="$router.push('../rent_car');
+             rememberCar(CAR)"
+             :src="require(`../plugins/images/${CAR.picture}`)"/>
 
         <br/>
 
-        <button class="button" @click="checkAvailable(CAR)">
-          Check Availability
-        </button>
+        <div class="option">
+          <button class="button" id="firstbtn" @click="checkAvailable(CAR)">
+            Check Availability
+          </button>
+
+          <button class="button" id="secondbtn" @click="rentCar(CAR)">
+            Rent this car
+          </button>
+        </div>
 
         <div v-if="message && (selectedCar === CAR)"
              class="alert" :class="selectedCar.status ? 'alert-success' : 'alert-danger'">
@@ -61,11 +70,27 @@ export default {
       }.bind(this))
     },
     checkAvailable(selectedCar) {
-      if(selectedCar.status === false)
-        return this.message = 'Unavailable', this.selectedCar = selectedCar;
-      else
-        return this.message = 'Available', this.selectedCar = selectedCar;
+      if(selectedCar.status === false) {
+        this.selectedCar = selectedCar;
+        return this.message = 'Unavailable';
+      }
+      else {
+        document.getElementById("firstbtn").style.display = "none";
+        document.getElementById("secondbtn").style.display = "block";
+        this.selectedCar = selectedCar;
+        return this.message = 'Available';
+      }
     },
+    rentCar(selectedCar) {
+      if(selectedCar.status === true) {
+        axios.patch("http://localhost:8080/api/items/rent/"+selectedCar.modelName,{});
+        this.selectedCar=selectedCar
+        this.$router.push('/')
+      }
+    },
+    rememberCar(selectedCar) {
+      localStorage.setItem('selectedCar', JSON.stringify(selectedCar));
+    }
   },
 }
 </script>

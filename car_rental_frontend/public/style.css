@@ -48,8 +48,6 @@
     border-radius: 5px;
     margin-bottom: 20px;
 }
-
-
 .button:after {
     content: "";
     background: #f1f1f1;
@@ -62,7 +60,6 @@
     opacity: 0;
     transition: all 0.8s
 }
-
 .button:active:after {
     padding: 0;
     margin: 0;
@@ -78,4 +75,8 @@
     color: #155724;
     background-color: #d4edda;
     border-color: #c3e6cb;
+}
+.option {
+    display: flex;
+    justify-content: space-evenly;
 }

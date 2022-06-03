@@ -135,13 +135,22 @@
         {{ ALLCARS.brandName + " " + ALLCARS.modelName}}
         <br/>
 
-        <img class="img" :src="require(`../plugins/images/${ALLCARS.picture}`)"/>
+        <img class="img"
+             @click="$router.push('../rent_car');
+             rememberCar(ALLCARS)"
+             :src="require(`../plugins/images/${ALLCARS.picture}`)"/>
 
         <br/>
 
-        <button class="button" @click="checkAvailable(ALLCARS)">
-          Check Availability
-        </button>
+        <div class="option">
+          <button class="button" id="firstbtn" @click="checkAvailable(CAR)">
+            Check Availability
+          </button>
+
+          <button class="button" id="secondbtn" @click="rentCar(CAR)">
+            Rent this car
+          </button>
+        </div>
 
         <div v-if="message && (selectedCar === ALLCARS)"
              class="alert" :class="selectedCar.status ? 'alert-success' : 'alert-danger'">
@@ -235,7 +244,7 @@ export default {
       advert.color = this.convertToString(advert.color);
 
       let URL = `http://localhost:8080/api/items` +
-          `?brandName=${advert.brandName}&model=${advert.model}&carBody=${advert.carBody}` +
+          `?brand_name=${advert.brandName}&model=${advert.model}&car_body=${advert.carBody}` +
           `&color=${advert.color}&vintage_min=${advert.vintage_min}` +
           `&vintage_max=${advert.vintage_max}&mileage_min=${advert.mileage_min}&mileage_max=${advert.mileage_max}` +
           `&power_min=${advert.power_min}&power_max=${advert.power_max}&country=${advert.country}`;
@@ -247,10 +256,26 @@ export default {
           }.bind(this))
       },
     checkAvailable(selectedCar) {
-      if(selectedCar.status === false)
-        return this.message = 'Unavailable', this.selectedCar = selectedCar;
-      else
-        return this.message = 'Available', this.selectedCar = selectedCar;
+      if(selectedCar.status === false) {
+        this.selectedCar = selectedCar;
+        return this.message = 'Unavailable';
+      }
+      else {
+        document.getElementById("firstbtn").style.display = "none";
+        document.getElementById("secondbtn").style.display = "block";
+        this.selectedCar = selectedCar;
+        return this.message = 'Available';
+      }
+    },
+    rentCar(selectedCar) {
+      if(selectedCar.status === true) {
+        axios.patch("http://localhost:8080/api/items/rent/"+selectedCar.modelName,{});
+        this.selectedCar=selectedCar
+        this.$router.push('/')
+      }
+    },
+    rememberCar(selectedCar) {
+      localStorage.setItem('selectedCar', JSON.stringify(selectedCar));
     },
       convertToString(text) {
         if(text) {
