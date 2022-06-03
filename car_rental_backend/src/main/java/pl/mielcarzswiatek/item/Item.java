@@ -27,7 +27,7 @@ public class Item {
     @Column(name = "type")
     private String type;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
 

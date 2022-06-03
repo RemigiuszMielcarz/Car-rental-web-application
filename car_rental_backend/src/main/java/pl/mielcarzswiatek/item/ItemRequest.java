@@ -16,7 +16,7 @@ public class ItemRequest {
 
     // model
     private String modelName;
-
+    private String carBody;
     // item
     private String title;
     private String picture;

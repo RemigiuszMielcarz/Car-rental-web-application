@@ -56,7 +56,8 @@ export default {
     fetchItems() {
       axios.get("http://localhost:8080/api/items").then(function (response) {
         this.allCars = response.data;
-
+        console.log(this.allCars[0].status)
+        console.log(this.allCars[0].modelName)
         let temp = 0;
 
         for (let i = 0; i < this.allCars.length; i++) {
@@ -72,16 +73,24 @@ export default {
       }.bind(this))
     },
     checkAvailable(selectedCar) {
-      if(selectedCar.status === false)
-        return this.message = 'Unavailable', this.selectedCar = selectedCar;
-      else
-        document.getElementById("firstbtn").style.display="none";
-        document.getElementById("secondbtn").style.display="block";
-        return this.message = 'Available', this.selectedCar = selectedCar;
+      if(selectedCar.status === false) {
+        console.log(selectedCar)
+        this.selectedCar = selectedCar;
+        return this.message = 'Unavailable';
+      }
+      else {
+        document.getElementById("firstbtn").style.display = "none";
+        document.getElementById("secondbtn").style.display = "block";
+        this.selectedCar = selectedCar;
+        return this.message = 'Available';
+      }
     },
     rentCar(selectedCar) {
-      if(selectedCar.status === true)
-        this.$router.push('./rent_car')
+      if(selectedCar.status === true) {
+        axios.patch("http://localhost:8080/api/items/rent/"+selectedCar.modelName,{});
+        this.selectedCar=selectedCar
+        this.$router.push('/')
+      }
     }
   },
 }

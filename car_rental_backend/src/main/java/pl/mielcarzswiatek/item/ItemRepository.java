@@ -1,10 +1,13 @@
 package pl.mielcarzswiatek.item;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
@@ -20,6 +23,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             "AND a.car.carModel.priceList.month BETWEEN ?13 AND ?14 " +
             "AND a.car.carModel.modelName LIKE ?15 " +
             "AND a.car.carModel.carBrand.country LIKE ?16"
+
+
+
     )
     List<Item> findByFilters(
             Integer powerMin,
@@ -37,6 +43,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             Integer monthMin,
             Integer monthMax,
             String modelName,
-            String country
+            String country,
+            String carBody
     );
+
+    Optional<Item>findByCar_CarModel_ModelName(String modelName);
 }

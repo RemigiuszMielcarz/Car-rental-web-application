@@ -35,4 +35,5 @@ public class ItemResponse {
     private Integer month;
 
     private Boolean status;
+
 }

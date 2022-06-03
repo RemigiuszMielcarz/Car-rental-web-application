@@ -12,6 +12,7 @@ import pl.mielcarzswiatek.status.StatusRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -38,7 +39,8 @@ public class ItemService {
                                            Integer monthMin,
                                            Integer monthMax,
                                            String modelName,
-                                           String country) {
+                                           String country,
+                                           String carBody) {
 
         List<Item> adverts = itemRepository.findByFilters(
                 powerMin,
@@ -56,7 +58,8 @@ public class ItemService {
                 monthMin,
                 monthMax,
                 modelName,
-                country
+                country,
+                carBody
         );
 
         List<ItemResponse> responses = mapper.createItemResponses(adverts);
@@ -73,4 +76,15 @@ public class ItemService {
                 .status(HttpStatus.OK)
                 .body("Item deleted");
     }
+    @Transactional
+    public ResponseEntity<?> rentCar(String modelName) {
+        Item item = itemRepository.findByCar_CarModel_ModelName(modelName).get();
+        Optional <Status> status = statusRepository.findById(1L);
+        item.setStatus(status.get());
+        itemRepository.save(item);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Car rented");
+    }
+
 }

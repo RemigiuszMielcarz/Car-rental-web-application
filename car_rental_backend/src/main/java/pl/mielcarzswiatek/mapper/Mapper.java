@@ -1,6 +1,7 @@
 package pl.mielcarzswiatek.mapper;
 
 import org.springframework.stereotype.Service;
+import pl.mielcarzswiatek.car.Car;
 import pl.mielcarzswiatek.item.Item;
 import pl.mielcarzswiatek.item.ItemResponse;
 import pl.mielcarzswiatek.carbrand.CarBrand;
@@ -32,7 +33,6 @@ public class Mapper {
         CarBrand carBrand = carModel.getCarBrand();
         PriceList priceList = carModel.getPriceList();
         Status status = advert.getStatus();
-
         return new ItemResponse(
                 advert.getTitle(),
                 advert.getPicture(),

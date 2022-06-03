@@ -239,7 +239,6 @@ export default {
           `&color=${advert.color}&vintage_min=${advert.vintage_min}` +
           `&vintage_max=${advert.vintage_max}&mileage_min=${advert.mileage_min}&mileage_max=${advert.mileage_max}` +
           `&power_min=${advert.power_min}&power_max=${advert.power_max}&country=${advert.country}`;
-
           this.$emit('carURL', URL)
 
           console.log(URL)

@@ -29,8 +29,8 @@ public class ItemController {
             @RequestParam(name = "week_max", defaultValue = "2000000000") Integer weekMax,
             @RequestParam(name = "month_min", defaultValue = "0") Integer monthMin,
             @RequestParam(name = "month_max", defaultValue = "2000000000") Integer monthMax,
-            @RequestParam(name = "country", defaultValue = "%") String country
-
+            @RequestParam(name = "country", defaultValue = "%") String country,
+            @RequestParam(name = "car_body",defaultValue = "%") String carBody
             )
        {
 
@@ -50,12 +50,18 @@ public class ItemController {
                 monthMin,
                 monthMax,
                 modelName,
-                country
+                country,
+                carBody
         );
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteAdvertById(@PathVariable("id") Long id) {
         return itemService.deleteAdvertById(id);
+    }
+
+    @PatchMapping(path="/rent/{modelName}")
+    public ResponseEntity<?> rentCar(@PathVariable("modelName")String modelName){
+        return itemService.rentCar(modelName);
     }
 }
